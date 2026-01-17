@@ -3,7 +3,7 @@ package email_notification
 import "github.com/KOMKZ/go-yogan-framework/errcode"
 
 const (
-	ModuleCode = 25 // 邮件通知模块码
+	ModuleCode = 28 // 邮件通知模块码（20:option, 21:storage, 22:article, 23:auth, 24:admin, 25:member, 26:rbac, 27:docs, 28:email_notification）
 )
 
 var (
