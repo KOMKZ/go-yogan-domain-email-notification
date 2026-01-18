@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/KOMKZ/go-yogan-component-email"
+	email "github.com/KOMKZ/go-yogan-component-email"
 	"github.com/KOMKZ/go-yogan-domain-email-notification/model"
 	"gorm.io/gorm"
 )
