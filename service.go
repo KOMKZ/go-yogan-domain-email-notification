@@ -13,23 +13,25 @@ import (
 
 // Service 邮件通知服务
 type Service struct {
-	db          *gorm.DB
+	db           *gorm.DB
 	templateRepo TemplateRepository
 	logRepo      SendLogRepository
-	emailComp   *email.Component
-	registry    *TriggerRegistry
-	engine      *TemplateEngine
+	emailComp    *email.Component
+	registry     *TriggerRegistry
+	engine       *TemplateEngine
+	commonParams map[string]any // 通用参数（应用级注入，Send 时自动合并）
 }
 
 // NewService 创建服务
-func NewService(db *gorm.DB, emailComp *email.Component, registry *TriggerRegistry) *Service {
+func NewService(db *gorm.DB, emailComp *email.Component, registry *TriggerRegistry, commonParams map[string]any) *Service {
 	return &Service{
-		db:          db,
+		db:           db,
 		templateRepo: NewGormTemplateRepository(db),
 		logRepo:      NewGormSendLogRepository(db),
-		emailComp:   emailComp,
-		registry:    registry,
-		engine:      NewTemplateEngine(),
+		emailComp:    emailComp,
+		registry:     registry,
+		engine:       NewTemplateEngine(),
+		commonParams: commonParams,
 	}
 }
 
@@ -388,10 +390,17 @@ func (s *Service) sendWithTemplate(ctx context.Context, template *model.Template
 func (s *Service) mergeParams(params map[string]any) map[string]any {
 	merged := make(map[string]any)
 
-	// 自动注入 CurrentYear
-	merged["CurrentYear"] = time.Now().Year()
+	// 1. 注入通用参数（应用级）
+	for k, v := range s.commonParams {
+		merged[k] = v
+	}
 
-	// 用户传入的参数
+	// 2. 自动注入 CurrentYear（如未在 commonParams 中定义）
+	if _, ok := merged["CurrentYear"]; !ok {
+		merged["CurrentYear"] = time.Now().Year()
+	}
+
+	// 3. 用户传入的参数（优先级最高）
 	for k, v := range params {
 		merged[k] = v
 	}

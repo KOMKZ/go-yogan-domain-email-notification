@@ -17,5 +17,6 @@ var (
 	ErrInvalidInput      = errcode.Register(errcode.New(ModuleCode, 1008, "email_notification", "invalid_input", "输入参数无效", 400))
 	ErrDatabaseError     = errcode.Register(errcode.New(ModuleCode, 1009, "email_notification", "database_error", "数据库操作失败", 500))
 	ErrNotImplemented    = errcode.Register(errcode.New(ModuleCode, 1010, "email_notification", "not_implemented", "功能暂未实现", 501))
-	ErrSendLogNotFound   = errcode.Register(errcode.New(ModuleCode, 1011, "email_notification", "send_log.not_found", "发送日志不存在", 404))
+	ErrSendLogNotFound       = errcode.Register(errcode.New(ModuleCode, 1011, "email_notification", "send_log.not_found", "发送日志不存在", 404))
+	ErrServiceNotAvailable   = errcode.Register(errcode.New(ModuleCode, 1012, "email_notification", "service.not_available", "邮件通知服务不可用", 503))
 )
