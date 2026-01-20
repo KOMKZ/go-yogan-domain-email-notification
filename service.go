@@ -16,19 +16,19 @@ type Service struct {
 	db           *gorm.DB
 	templateRepo TemplateRepository
 	logRepo      SendLogRepository
-	emailComp    *email.Component
+	emailMgr     *email.Manager
 	registry     *TriggerRegistry
 	engine       *TemplateEngine
 	commonParams map[string]any // 通用参数（应用级注入，Send 时自动合并）
 }
 
 // NewService 创建服务
-func NewService(db *gorm.DB, emailComp *email.Component, registry *TriggerRegistry, commonParams map[string]any) *Service {
+func NewService(db *gorm.DB, emailMgr *email.Manager, registry *TriggerRegistry, commonParams map[string]any) *Service {
 	return &Service{
 		db:           db,
 		templateRepo: NewGormTemplateRepository(db),
 		logRepo:      NewGormSendLogRepository(db),
-		emailComp:    emailComp,
+		emailMgr:     emailMgr,
 		registry:     registry,
 		engine:       NewTemplateEngine(),
 		commonParams: commonParams,
@@ -307,7 +307,7 @@ func (s *Service) sendWithTemplate(ctx context.Context, template *model.Template
 	}
 
 	// 构建邮件
-	builder := s.emailComp.New().
+	builder := s.emailMgr.New().
 		To(recipient).
 		Subject(subject).
 		Body(body)

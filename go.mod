@@ -5,7 +5,7 @@ go 1.24.0
 toolchain go1.24.1
 
 require (
-	github.com/KOMKZ/go-yogan-component-email v0.0.0
+	github.com/KOMKZ/go-yogan-component-email v0.0.0-00010101000000-000000000000
 	github.com/KOMKZ/go-yogan-framework v0.0.0
 	gorm.io/gorm v1.31.1
 )
@@ -14,8 +14,9 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/samber/do/v2 v2.0.0 // indirect
+	github.com/samber/go-type-to-string v1.8.0 // indirect
 	go.opentelemetry.io/otel v1.39.0 // indirect
-	go.opentelemetry.io/otel/metric v1.39.0 // indirect
 	go.opentelemetry.io/otel/trace v1.39.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.1 // indirect
