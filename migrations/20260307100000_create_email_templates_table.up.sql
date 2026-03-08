@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `email_templates` (
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `trigger_code` VARCHAR(100) NOT NULL COMMENT '触发点代码',
+    `language` VARCHAR(10) NOT NULL DEFAULT 'zh-CN' COMMENT '语言',
+    `name` VARCHAR(200) NOT NULL COMMENT '模板名称',
+    `subject` VARCHAR(500) NOT NULL COMMENT '邮件主题（支持模板变量）',
+    `body_html` TEXT NOT NULL COMMENT 'HTML 正文（支持模板变量）',
+    `body_text` TEXT COMMENT '纯文本正文',
+    `status` VARCHAR(20) NOT NULL DEFAULT 'draft' COMMENT '状态: draft/enabled/disabled',
+    `cc` VARCHAR(1000) DEFAULT NULL COMMENT '抄送（逗号分隔）',
+    `bcc` VARCHAR(1000) DEFAULT NULL COMMENT '密送（逗号分隔）',
+    `reply_to` VARCHAR(200) DEFAULT NULL COMMENT '回复地址',
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `deleted_at` DATETIME DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_trigger` (`trigger_code`),
+    KEY `idx_status` (`status`),
+    KEY `idx_deleted_at` (`deleted_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='邮件通知模板';
