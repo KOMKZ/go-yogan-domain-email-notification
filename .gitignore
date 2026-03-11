@@ -1,0 +1,30 @@
+# Go artifacts
+bin/
+dist/
+build/
+vendor/
+*.test
+*.out
+coverage.out
+coverage.html
+
+# Workspace
+go.work
+go.work.sum
+
+# Logs and runtime
+logs/
+.runtime/
+service/logs/
+*.log
+
+# IDE/editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
